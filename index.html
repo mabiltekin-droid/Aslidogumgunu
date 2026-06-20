@@ -315,6 +315,39 @@
             line-height: 1.7;
         }
 
+        .music-btn {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 10;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(139, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f5d5d5;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+        }
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: rgba(139, 0, 0, 0.9);
+            box-shadow: 0 4px 30px rgba(139, 0, 0, 0.5);
+        }
+        .music-btn.paused {
+            opacity: 0.6;
+        }
+        .music-btn .note { display: inline; }
+        .music-btn .note.off { display: none; }
+        .music-btn.paused .note { display: none; }
+        .music-btn.paused .note.off { display: inline; }
+
         .confetti-container {
             position: fixed;
             top: 0;
@@ -358,6 +391,15 @@
 <div class="particles" id="particles"></div>
 <div class="rose-container">🌹 🌹 🌹 🌹 🌹</div>
 <div class="confetti-container" id="confettiContainer"></div>
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="muzik.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn paused" id="musicBtn" onclick="toggleMusic()">
+    <span class="note">🎵</span>
+    <span class="note off">🎶</span>
+</button>
 
 <div class="container">
     <div class="ornament">✦ ✦ ✦</div>
@@ -441,6 +483,31 @@
 <script>
     const BIRTH_MONTH = 7;
     const BIRTH_DAY = 4;
+
+    let musicStarted = false;
+
+    function toggleMusic() {
+        const audio = document.getElementById('bgMusic');
+        const btn = document.getElementById('musicBtn');
+        if (audio.paused) {
+            audio.play().catch(() => {});
+            btn.classList.remove('paused');
+        } else {
+            audio.pause();
+            btn.classList.add('paused');
+        }
+    }
+
+    function startMusicOnInteraction() {
+        if (musicStarted) return;
+        const btn = document.getElementById('musicBtn');
+        document.addEventListener('click', () => {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(() => {});
+            btn.classList.remove('paused');
+            musicStarted = true;
+        }, { once: true });
+    }
 
     const LOVE_DATE = new Date(2026, 4, 3);
 
@@ -528,6 +595,7 @@
     }
 
     createParticles();
+    startMusicOnInteraction();
 
     if (isBirthday(new Date())) {
         createConfetti();
