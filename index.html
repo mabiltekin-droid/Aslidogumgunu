@@ -234,6 +234,66 @@
             font-weight: 600;
         }
 
+        .love-section {
+            margin-top: 1.8rem;
+            padding: 1.5rem;
+            background: rgba(139, 0, 0, 0.08);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            animation: fadeInUp 1.5s ease-out 0.3s both;
+        }
+
+        .love-section .label {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.3rem;
+            color: #c0392b;
+            margin-bottom: 0.5rem;
+        }
+
+        .love-timer {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .love-timer .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .love-timer .item .num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f5d5d5;
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            min-width: 55px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+        }
+
+        .love-timer .item .lbl {
+            font-size: 0.65rem;
+            color: #a06060;
+            margin-top: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .love-hearts {
+            font-size: 1.2rem;
+            letter-spacing: 0.3rem;
+            margin-top: 0.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
         .message-box {
             display: none;
         }
@@ -338,6 +398,37 @@
         </div>
     </div>
 
+    <div class="love-section" id="loveSection">
+        <div class="label">♥ 3 Mayıs 2026'dan beri birlikteler ♥</div>
+        <div class="love-timer">
+            <div class="item">
+                <div class="num" id="loveYears">0</div>
+                <div class="lbl">Yıl</div>
+            </div>
+            <div class="item">
+                <div class="num" id="loveMonths">0</div>
+                <div class="lbl">Ay</div>
+            </div>
+            <div class="item">
+                <div class="num" id="loveDays">0</div>
+                <div class="lbl">Gün</div>
+            </div>
+            <div class="item">
+                <div class="num" id="loveHours">0</div>
+                <div class="lbl">Saat</div>
+            </div>
+            <div class="item">
+                <div class="num" id="loveMinutes">0</div>
+                <div class="lbl">Dk</div>
+            </div>
+            <div class="item">
+                <div class="num" id="loveSeconds">0</div>
+                <div class="lbl">Sn</div>
+            </div>
+        </div>
+        <div class="love-hearts">💕 💗 💕</div>
+    </div>
+
     <div class="message-box" id="messageBox">
         <p>
             Güzelliğin ve zarafetinle herkesi büyüleyen,<br>
@@ -350,6 +441,20 @@
 <script>
     const BIRTH_MONTH = 7;
     const BIRTH_DAY = 4;
+
+    const LOVE_DATE = new Date(2026, 4, 3);
+
+    function updateLoveTimer(now) {
+        const diff = now - LOVE_DATE;
+        if (diff < 0) return;
+        const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('loveYears').textContent = Math.floor(totalDays / 365);
+        document.getElementById('loveMonths').textContent = Math.floor((totalDays % 365) / 30);
+        document.getElementById('loveDays').textContent = Math.floor(totalDays % 30);
+        document.getElementById('loveHours').textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        document.getElementById('loveMinutes').textContent = Math.floor((diff / (1000 * 60)) % 60);
+        document.getElementById('loveSeconds').textContent = Math.floor((diff / 1000) % 60);
+    }
 
     function createParticles() {
         const container = document.getElementById('particles');
@@ -399,6 +504,8 @@
     function update() {
         const now = new Date();
         const birthday = isBirthday(now);
+
+        updateLoveTimer(now);
 
         document.getElementById('birthdaySection').classList.toggle('active', birthday);
         document.getElementById('countdownSection').classList.toggle('active', !birthday);
