@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aslı'nın Doğum Günü</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a0a0a, #2d0f0f, #4a0f0f, #6b1a1a);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(139, 0, 0, 0.15) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 60%, rgba(107, 15, 26, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #c0392b;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+            box-shadow: 0 0 6px #c0392b, 0 0 12px #8b0000;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        .rose-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 2rem;
+            opacity: 0.15;
+            font-size: 4rem;
+        }
+
+        .container {
+            text-align: center;
+            padding: 4rem 3rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            max-width: 650px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ornament {
+            font-size: 1.8rem;
+            color: #8b0000;
+            letter-spacing: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .candle-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .candle {
+            font-size: 4.5rem;
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 30px rgba(139, 0, 0, 0.4));
+        }
+
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.3)) brightness(1); }
+            100% { filter: drop-shadow(0 0 40px rgba(139, 0, 0, 0.6)) brightness(1.1); }
+        }
+
+        .birthday-section {
+            display: none;
+        }
+
+        .birthday-section.active {
+            display: block;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .birthday-message {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #e8c8c8;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .birthday-message .highlight {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            display: block;
+            color: #f5d5d5;
+            text-shadow: 0 0 20px rgba(139, 0, 0, 0.4), 2px 2px 4px rgba(0,0,0,0.3);
+            margin-top: 0.3rem;
+            letter-spacing: 2px;
+        }
+
+        .birthday-message .heart-icon {
+            color: #c0392b;
+            font-size: 2.5rem;
+            vertical-align: middle;
+        }
+
+        .sub-message {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: #c0392b;
+            margin-top: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b0000, transparent);
+            margin: 1.2rem auto;
+        }
+
+        .countdown-section {
+            display: none;
+        }
+
+        .countdown-section.active {
+            display: block;
+        }
+
+        .countdown-section h2 {
+            font-size: 1.5rem;
+            color: #d4b0b0;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .countdown-section h2 .name {
+            color: #e8c8c8;
+            font-weight: 700;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .timer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-item .number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #4a0f0f, #6b1a1a, #8b0000);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            min-width: 85px;
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .timer-item .label {
+            font-size: 0.8rem;
+            color: #a06060;
+            margin-top: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .message-box {
+            display: none;
+        }
+
+        .message-box.active {
+            display: block;
+            margin-top: 2rem;
+            padding: 1.8rem;
+            background: rgba(139, 0, 0, 0.12);
+            border-radius: 16px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            animation: fadeInUp 1.5s ease-out 0.5s both;
+        }
+
+        .message-box p {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: #d4b0b0;
+            line-height: 1.7;
+        }
+
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.9;
+            animation: confettiFall linear infinite;
+            border-radius: 2px;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(1080deg); opacity: 0; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 2.5rem 1.2rem; }
+            .birthday-message { font-size: 1.8rem; }
+            .birthday-message .highlight { font-size: 3.5rem; }
+            .timer-item .number { font-size: 2rem; min-width: 65px; padding: 0.8rem 0.8rem; }
+            .countdown-section h2 { font-size: 1.1rem; }
+            .candle { font-size: 3rem; }
+            .sub-message { font-size: 1.3rem; }
+            .timer { gap: 0.6rem; }
+            .ornament { font-size: 1.2rem; letter-spacing: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+<div class="particles" id="particles"></div>
+<div class="rose-container">🌹 🌹 🌹 🌹 🌹</div>
+<div class="confetti-container" id="confettiContainer"></div>
+
+<div class="container">
+    <div class="ornament">✦ ✦ ✦</div>
+
+    <div class="candle-section">
+        <div class="candle" id="candle">🕯️</div>
+    </div>
+
+    <div class="birthday-section" id="birthdaySection">
+        <div class="divider"></div>
+        <div class="birthday-message">
+            İyi ki doğdun
+            <span class="highlight">Aslı <span class="heart-icon">♥</span></span>
+        </div>
+        <div class="sub-message">Her günün sevgiyle, zarafetle ve mutlulukla dolsun...</div>
+        <div class="divider"></div>
+    </div>
+
+    <div class="countdown-section" id="countdownSection">
+        <h2>✦ <span class="name">Aslı</span>'nın doğum gününe kalan süre ✦</h2>
+        <div class="timer">
+            <div class="timer-item">
+                <div class="number" id="days">0</div>
+                <div class="label">Gün</div>
+            </div>
+            <div class="timer-item">
+                <div class="number" id="hours">0</div>
+                <div class="label">Saat</div>
+            </div>
+            <div class="timer-item">
+                <div class="number" id="minutes">0</div>
+                <div class="label">Dakika</div>
+            </div>
+            <div class="timer-item">
+                <div class="number" id="seconds">0</div>
+                <div class="label">Saniye</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-box" id="messageBox">
+        <p>
+            Güzelliğin ve zarafetinle herkesi büyüleyen,<br>
+            kalbindeki iyilikle dünyayı aydınlatan<br>
+            harika bir kadınsın. Nice mutlu yıllara... ♥
+        </p>
+    </div>
+</div>
+
+<script>
+    const BIRTH_MONTH = 7;
+    const BIRTH_DAY = 4;
+
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const el = document.createElement('div');
+            el.className = 'particle';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.width = (Math.random() * 4 + 2) + 'px';
+            el.style.height = el.style.width;
+            el.style.animationDuration = (Math.random() * 10 + 8) + 's';
+            el.style.animationDelay = (Math.random() * 10) + 's';
+            el.style.opacity = (Math.random() * 0.4 + 0.1);
+            container.appendChild(el);
+        }
+    }
+
+    function createConfetti() {
+        const container = document.getElementById('confettiContainer');
+        const colors = ['#8b0000', '#6b1a1a', '#c0392b', '#e74c3c', '#4a0f0f', '#a93226', '#7b241c', '#b03a2e'];
+        for (let i = 0; i < 100; i++) {
+            const el = document.createElement('div');
+            el.className = 'confetti';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            el.style.width = (Math.random() * 8 + 6) + 'px';
+            el.style.height = (Math.random() * 8 + 6) + 'px';
+            el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            el.style.animationDuration = (Math.random() * 4 + 3) + 's';
+            el.style.animationDelay = (Math.random() * 6) + 's';
+            container.appendChild(el);
+        }
+    }
+
+    function getNextBirthday(now) {
+        const year = now.getFullYear();
+        const thisYear = new Date(year, BIRTH_MONTH, BIRTH_DAY);
+        if (now > thisYear) {
+            return new Date(year + 1, BIRTH_MONTH, BIRTH_DAY);
+        }
+        return thisYear;
+    }
+
+    function isBirthday(now) {
+        return now.getMonth() === BIRTH_MONTH && now.getDate() === BIRTH_DAY;
+    }
+
+    function update() {
+        const now = new Date();
+        const birthday = isBirthday(now);
+
+        document.getElementById('birthdaySection').classList.toggle('active', birthday);
+        document.getElementById('countdownSection').classList.toggle('active', !birthday);
+        document.getElementById('messageBox').classList.toggle('active', birthday);
+
+        const candle = document.getElementById('candle');
+        if (birthday) {
+            document.title = '♥ İyi ki doğdun Aslı! ♥';
+            candle.textContent = '🎂';
+        } else {
+            document.title = "Aslı'nın Doğum Günü";
+            candle.textContent = '🕯️';
+            const next = getNextBirthday(now);
+            const diff = next - now;
+            document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            document.getElementById('minutes').textContent = Math.floor((diff / (1000 * 60)) % 60);
+            document.getElementById('seconds').textContent = Math.floor((diff / 1000) % 60);
+        }
+    }
+
+    createParticles();
+
+    if (isBirthday(new Date())) {
+        createConfetti();
+    }
+
+    update();
+    setInterval(update, 1000);
+</script>
+
+</body>
+</html>
