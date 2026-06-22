@@ -294,6 +294,196 @@
             50% { transform: scale(1.1); }
         }
 
+        .oyunlar {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .oyun-kart {
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            background: rgba(139, 0, 0, 0.12);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+            flex: 1;
+            max-width: 150px;
+            user-select: none;
+        }
+        .oyun-kart:hover {
+            background: rgba(139, 0, 0, 0.2);
+            transform: translateY(-3px);
+            border-color: #c0392b;
+        }
+        .oyun-kart .ikon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .oyun-kart .yazi {
+            font-size: 0.8rem;
+            color: #c0a0a0;
+            letter-spacing: 1px;
+        }
+
+        /* Hediye Kutusu */
+        .hediye-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .hediye-overlay.acik { display: flex; }
+        .hediye-kutu {
+            background: linear-gradient(135deg, #3a0a0a, #4a0f0f, #6b1a1a);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(139,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: hediyeGir 0.5s ease-out;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+        @keyframes hediyeGir {
+            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .hediye-kutu .kutu-ikon {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+        .hediye-kutu .kutu-ikon.acik { transform: scale(1.1); }
+        .hediye-kutu h3 {
+            color: #e8c8c8;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .hediye-kutu p {
+            color: #d4b0b0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-family: 'Great Vibes', cursive;
+        }
+        .hediye-kutu .kapat {
+            margin-top: 1.5rem;
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(139,0,0,0.3);
+            background: transparent;
+            color: #e8c8c8;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .hediye-kutu .kapat:hover { background: rgba(139,0,0,0.15); }
+        .hediye-sparkle {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: sparkleFade 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes sparkleFade {
+            0% { transform: translate(0,0) scale(0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+        }
+
+        /* Mum Üfleme */
+        .mum-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .mum-overlay.acik { display: flex; }
+        .mum-kutu {
+            background: linear-gradient(135deg, #3a0a0a, #4a0f0f, #6b1a1a);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(139,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: hediyeGir 0.5s ease-out;
+            max-width: 400px;
+            width: 90%;
+        }
+        .mum-kutu .pasta { font-size: 6rem; display: block; margin-bottom: 0.5rem; }
+        .mum-kutu .alev {
+            font-size: 2.5rem; display: block; cursor: pointer;
+            transition: all 0.3s;
+            animation: alevDans 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes alevDans {
+            0% { transform: scale(1) rotate(-3deg); }
+            100% { transform: scale(1.1) rotate(3deg); }
+        }
+        .mum-kutu .alev.sondu { opacity: 0.3; animation: none; transform: scale(0.5); }
+        .mum-kutu .ufle-yazi { color: #a06060; margin-top: 0.5rem; font-size: 1rem; }
+        .mum-kutu .ufle-yazi.hide { display: none; }
+        .mum-kutu .tebrik { color: #e8c8c8; font-size: 1.3rem; margin-top: 0.5rem; display: none; font-family: 'Great Vibes', cursive; }
+        .mum-kutu .tebrik.show { display: block; }
+        .mum-kutu .kapat-btn {
+            margin-top: 1.5rem; padding: 0.5rem 2rem; border-radius: 30px;
+            border: 1px solid rgba(139,0,0,0.3); background: transparent;
+            color: #e8c8c8; cursor: pointer; font-size: 1rem; transition: all 0.3s;
+        }
+        .mum-kutu .kapat-btn:hover { background: rgba(139,0,0,0.15); }
+
+        /* Balon Patlatma */
+        .balon-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 100;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .balon-overlay.acik { display: flex; }
+        .balon-kutu {
+            background: linear-gradient(135deg, #3a0a0a, #4a0f0f, #6b1a1a);
+            border-radius: 24px; padding: 2rem; text-align: center;
+            border: 1px solid rgba(139,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: hediyeGir 0.5s ease-out;
+            max-width: 450px; width: 90%; position: relative; min-height: 350px;
+        }
+        .balon-kutu .skor { color: #e8c8c8; font-size: 1.2rem; margin-bottom: 1rem; }
+        .balon-alani { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; min-height: 200px; align-items: center; }
+        .balon {
+            font-size: 3rem; cursor: pointer; transition: transform 0.2s;
+            animation: balonYuz 2s ease-in-out infinite; user-select: none;
+        }
+        .balon:hover { transform: scale(1.2); }
+        .balon.patlamis { animation: patlama 0.4s ease-out forwards; pointer-events: none; }
+        @keyframes balonYuz { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes patlama { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(0); opacity: 0; } }
+        .balon-kutu .yenile {
+            margin-top: 1rem; padding: 0.5rem 2rem; border-radius: 30px;
+            border: 1px solid rgba(139,0,0,0.3); background: transparent;
+            color: #e8c8c8; cursor: pointer; font-size: 1rem; transition: all 0.3s;
+        }
+        .balon-kutu .yenile:hover { background: rgba(139,0,0,0.15); }
+        .balon-kutu .kapat-balon {
+            margin-top: 0.5rem; padding: 0.4rem 1.5rem; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1); background: transparent;
+            color: #a06060; cursor: pointer; font-size: 0.9rem; transition: all 0.3s;
+        }
+        .balon-kutu .kapat-balon:hover { background: rgba(255,255,255,0.05); }
+
         .sevgili-link {
             margin-top: 1.5rem;
             padding-top: 1.2rem;
@@ -496,6 +686,21 @@
         <div class="love-hearts">💕 💗 💕</div>
     </div>
 
+    <div class="oyunlar">
+        <div class="oyun-kart" onclick="hediyeAc()">
+            <span class="ikon">🎁</span>
+            <span class="yazi">HEDİYE</span>
+        </div>
+        <div class="oyun-kart" onclick="mumAc()">
+            <span class="ikon">🕯️</span>
+            <span class="yazi">MUM ÜFLE</span>
+        </div>
+        <div class="oyun-kart" onclick="balonAc()">
+            <span class="ikon">🎈</span>
+            <span class="yazi">BALON PATLAT</span>
+        </div>
+    </div>
+
     <div class="sevgili-link">
         <a href="https://adasdogumgunu.vercel.app" target="_blank">
             ♥ Mustafa'nın Sayfası
@@ -508,6 +713,37 @@
             kalbindeki iyilikle dünyayı aydınlatan<br>
             harika bir kadınsın. Nice mutlu yıllara... ♥
         </p>
+    </div>
+</div>
+
+<!-- Hediye Kutusu -->
+<div class="hediye-overlay" id="hediyeOverlay">
+    <div class="hediye-kutu" id="hediyeKutu">
+        <span class="kutu-ikon" id="hediyeIkon">🎁</span>
+        <h3>Sana Özel Hediye!</h3>
+        <p>Sevgi dolu kalbin, güzel gülüşün ve harika enerjinle hep mutlu ol. İyi ki varsın! 💕</p>
+        <button class="kapat" onclick="hediyeKapat()">Kapat</button>
+    </div>
+</div>
+
+<!-- Mum Üfleme -->
+<div class="mum-overlay" id="mumOverlay">
+    <div class="mum-kutu" id="mumKutu">
+        <span class="pasta">🎂</span>
+        <span class="alev" id="alev" onclick="mumUfle()">🔥</span>
+        <div class="ufle-yazi" id="ufleYazi">👆 Mumu söndürmek için alevi tıkla!</div>
+        <div class="tebrik" id="tebrik">🎉 Harika! Dilek tut, gerçek olacak! ✨</div>
+        <button class="kapat-btn" onclick="mumKapat()">Kapat</button>
+    </div>
+</div>
+
+<!-- Balon Patlatma -->
+<div class="balon-overlay" id="balonOverlay">
+    <div class="balon-kutu">
+        <div class="skor">🎈 Patlattığın Balon: <span id="balonSkor">0</span></div>
+        <div class="balon-alani" id="balonAlani"></div>
+        <button class="yenile" onclick="balonYenile()">🔄 Yenile</button>
+        <button class="kapat-balon" onclick="balonKapat()">Kapat</button>
     </div>
 </div>
 
@@ -552,6 +788,83 @@
         document.getElementById('loveHours').textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
         document.getElementById('loveMinutes').textContent = Math.floor((diff / (1000 * 60)) % 60);
         document.getElementById('loveSeconds').textContent = Math.floor((diff / 1000) % 60);
+    }
+
+    // === HEDİYE KUTUSU ===
+    function hediyeAc() {
+        document.getElementById('hediyeOverlay').classList.add('acik');
+        document.getElementById('hediyeIkon').textContent = '🎁';
+        setTimeout(() => {
+            document.getElementById('hediyeIkon').textContent = '🎉';
+            document.getElementById('hediyeIkon').classList.add('acik');
+            hediyeSparkle();
+        }, 800);
+    }
+    function hediyeKapat() {
+        document.getElementById('hediyeOverlay').classList.remove('acik');
+        document.getElementById('hediyeIkon').classList.remove('acik');
+    }
+    function hediyeSparkle() {
+        const kutu = document.getElementById('hediyeKutu');
+        const emojis = ['✨', '🌟', '💫', '⭐', '🌹', '💕'];
+        for (let i = 0; i < 12; i++) {
+            const el = document.createElement('div');
+            el.className = 'hediye-sparkle';
+            el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            el.style.left = (30 + Math.random() * 40) + '%';
+            el.style.top = (20 + Math.random() * 40) + '%';
+            el.style.setProperty('--x', (Math.random() * 200 - 100) + 'px');
+            el.style.setProperty('--y', (Math.random() * 200 - 100) + 'px');
+            el.style.animationDelay = (i * 0.1) + 's';
+            kutu.appendChild(el);
+            setTimeout(() => el.remove(), 2000);
+        }
+    }
+
+    // === MUM ÜFLEME ===
+    function mumAc() {
+        document.getElementById('mumOverlay').classList.add('acik');
+        document.getElementById('alev').classList.remove('sondu');
+        document.getElementById('ufleYazi').classList.remove('hide');
+        document.getElementById('tebrik').classList.remove('show');
+    }
+    function mumKapat() { document.getElementById('mumOverlay').classList.remove('acik'); }
+    function mumUfle() {
+        const alev = document.getElementById('alev');
+        if (alev.classList.contains('sondu')) return;
+        alev.classList.add('sondu');
+        document.getElementById('ufleYazi').classList.add('hide');
+        document.getElementById('tebrik').classList.add('show');
+    }
+
+    // === BALON PATLATMA ===
+    const balonEmojis = ['🎈', '🎈', '🎈', '🎈', '🎈', '🌸', '🌷', '💗'];
+    let balonSayisi = 0;
+    function balonAc() {
+        document.getElementById('balonOverlay').classList.add('acik');
+        balonYenile();
+    }
+    function balonKapat() { document.getElementById('balonOverlay').classList.remove('acik'); }
+    function balonYenile() {
+        const alan = document.getElementById('balonAlani');
+        alan.innerHTML = '';
+        balonSayisi = 0;
+        document.getElementById('balonSkor').textContent = '0';
+        for (let i = 0; i < 12; i++) {
+            const el = document.createElement('div');
+            el.className = 'balon';
+            el.textContent = balonEmojis[Math.floor(Math.random() * balonEmojis.length)];
+            el.style.animationDelay = (Math.random() * 1.5) + 's';
+            el.onclick = () => balonPatlat(el);
+            alan.appendChild(el);
+        }
+    }
+    function balonPatlat(el) {
+        if (el.classList.contains('patlamis')) return;
+        el.classList.add('patlamis');
+        balonSayisi++;
+        document.getElementById('balonSkor').textContent = balonSayisi;
+        setTimeout(() => { if (el.parentNode) el.remove(); }, 400);
     }
 
     function createParticles() {
